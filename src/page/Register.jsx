@@ -50,10 +50,10 @@ function Register() {
           {/* Welcome Text */}
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-              Create Account
+              Buat Akun Baru
             </h2>
             <p className="text-gray-600 text-base sm:text-lg">
-              Sign up to your account
+              Daftar untuk memulai perjalanan keuangan Anda
             </p>
           </div>
 
@@ -157,7 +157,7 @@ function Register() {
           {/* Sign In Link */}
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-base sm:text-lg">
-              Already have an account?{" "}
+              Sudah punya akun?{" "}
               <button
                 type="button"
                 onClick={() => navigate("/")}

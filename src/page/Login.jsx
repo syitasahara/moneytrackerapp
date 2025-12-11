@@ -36,10 +36,10 @@ function Login() {
           {/* Welcome Back Text */}
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-              Welcome Back
+              Selamat Datang Kembali
             </h2>
             <p className="text-gray-600 text-base sm:text-lg">
-              Sign in to your account
+              Masuk ke akun Anda
             </p>
           </div>
 
@@ -121,7 +121,7 @@ function Login() {
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-base sm:text-lg">
-              Don't have an account?{" "}
+              Tidak punya akun?{" "}
               <button
                 type="button"
                 onClick={() => navigate("/register")}
