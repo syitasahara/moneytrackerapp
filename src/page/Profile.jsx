@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { User, MapPin, Phone, Mail, Camera, Calendar } from "lucide-react";
+import { User, MapPin, Phone, Mail, Camera } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/api";
 
@@ -189,63 +189,6 @@ const ProfilePage = () => {
                               {user.email || "-"}
                             </p>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Badge & Pencapaian (dummy) */}
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-4">
-                        Badge & Pencapaian
-                      </h3>
-
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 text-center">
-                          <div className="w-12 h-12 bg-yellow-400 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <Calendar className="w-6 h-6 text-yellow-900" />
-                          </div>
-                          <p className="font-semibold text-yellow-900 text-sm">
-                            Konsisten
-                          </p>
-                          <p className="text-xs text-yellow-700 mt-1">
-                            Catat harian 30 hari
-                          </p>
-                        </div>
-
-                        <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-center">
-                          <div className="w-12 h-12 bg-green-400 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <Calendar className="w-6 h-6 text-green-900" />
-                          </div>
-                          <p className="font-semibold text-green-900 text-sm">
-                            Konsisten
-                          </p>
-                          <p className="text-xs text-green-700 mt-1">
-                            Catat harian 60 hari
-                          </p>
-                        </div>
-
-                        <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 text-center">
-                          <div className="w-12 h-12 bg-blue-400 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <Calendar className="w-6 h-6 text-blue-900" />
-                          </div>
-                          <p className="font-semibold text-blue-900 text-sm">
-                            Konsisten
-                          </p>
-                          <p className="text-xs text-blue-700 mt-1">
-                            Catat harian 90 hari
-                          </p>
-                        </div>
-
-                        <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 text-center">
-                          <div className="w-12 h-12 bg-purple-400 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <Calendar className="w-6 h-6 text-purple-900" />
-                          </div>
-                          <p className="font-semibold text-purple-900 text-sm">
-                            Konsisten
-                          </p>
-                          <p className="text-xs text-purple-700 mt-1">
-                            Catat harian 120 hari
-                          </p>
                         </div>
                       </div>
                     </div>
