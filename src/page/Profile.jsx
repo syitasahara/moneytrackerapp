@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  User,
-  MapPin,
-  Phone,
-  Mail,
-  Camera,
-  Calendar,
-} from "lucide-react";
+import { User, MapPin, Phone, Mail, Camera, Calendar } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/api";
 
-// =======================
-// Halaman utama Profile
-// =======================
 const ProfilePage = () => {
   const [currentPage, setCurrentPage] = useState("profile");
   const [user, setUser] = useState(null);
@@ -348,7 +338,6 @@ const EditProfilePage = ({ onBack, user }) => {
     }));
   };
 
-  // Upload ke Cloudinary → simpan secure_url ke state
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -357,38 +346,47 @@ const EditProfilePage = ({ onBack, user }) => {
       setLoading(true);
 
       const form = new FormData();
-      form.append("file", file);
-      // GANTI ini dengan upload preset Cloudinary kamu
-      form.append("upload_preset", "YOUR_UPLOAD_PRESET_HERE");
+      // nama field harus sama dengan yang dipakai di backend (biasanya "image")
+      form.append("image", file);
 
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/damy8mndg/image/upload",
-        {
-          method: "POST",
-          body: form,
-        }
-      );
+      // ambil token dari localStorage
+      const token = localStorage.getItem("token");
 
-      const data = await res.json();
+      const res = await api.put("/users/profile/upload-image", form, {
+        // BIARKAN axios yang set "Content-Type: multipart/form-data"
+        headers: {
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
 
-      if (!data.secure_url) {
-        console.error("Cloudinary response:", data);
-        alert("Gagal upload ke Cloudinary");
+      console.log("Upload success:", res.data);
+
+      const updatedUser = res.data.user;
+
+      if (!updatedUser?.image) {
+        alert("Upload berhasil tapi URL gambar tidak ditemukan di response.");
         return;
       }
 
-      setProfileImage(data.secure_url);
-      setFormData((prev) => ({ ...prev, image: data.secure_url }));
+      // update preview & form
+      setProfileImage(updatedUser.image);
+      setFormData((prev) => ({ ...prev, image: updatedUser.image }));
+
+      // simpan user baru ke localStorage
+      localStorage.setItem("user", JSON.stringify(updatedUser));
     } catch (err) {
-      console.error("Cloudinary upload error:", err);
-      alert("Gagal upload foto, coba lagi ya.");
+      console.error("Upload image error:", err?.response || err);
+      alert(
+        err?.response?.data?.message ||
+          "Gagal upload foto profil, cek console Network untuk detailnya."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleCancel = () => {
-    onBack(); // balik tanpa update user
+    onBack(); // balik tanpa update user lainnya
   };
 
   const handleSubmit = async () => {
@@ -408,7 +406,7 @@ const EditProfilePage = ({ onBack, user }) => {
         domisili: formData.domisili,
         status_mahasiswa: formData.statusMahasiswa,
         jenis_kelamin: formData.jenisKelamin,
-        image: formData.image, // URL Cloudinary, atau null
+        image: formData.image, // URL dari endpoint upload-image
       };
 
       const res = await api.put(`/users/${user.id}`, payload);
@@ -425,8 +423,7 @@ const EditProfilePage = ({ onBack, user }) => {
     } catch (error) {
       console.error("Update profile error:", error);
       alert(
-        error.response?.data?.message ||
-          "Gagal update profile, coba lagi ya."
+        error.response?.data?.message || "Gagal update profile, coba lagi ya."
       );
     } finally {
       setLoading(false);
@@ -494,7 +491,7 @@ const EditProfilePage = ({ onBack, user }) => {
             </div>
 
             {/* Status & Gender Row */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
                 <label className="block text-gray-900 font-semibold mb-2">
                   Status Mahasiswa<span className="text-red-500">*</span>
@@ -554,7 +551,7 @@ const EditProfilePage = ({ onBack, user }) => {
             </div>
 
             {/* Phone & Email Row */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               <div>
                 <label className="block text-gray-900 font-semibold mb-2">
                   No. Telepon<span className="text-red-500">*</span>
