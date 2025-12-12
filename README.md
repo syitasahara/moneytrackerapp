@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# MoneyTracker (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deskripsi singkat:
 
-## Available Scripts
+MoneyTracker adalah aplikasi frontend untuk mencatat dan memvisualisasikan pemasukan serta pengeluaran pribadi. Proyek ini dibuat dengan React dan Tailwind CSS, dan terhubung ke API yang berada di folder `api/`.
 
-In the project directory, you can run:
+Fitur utama:
 
-### `npm start`
+- Menambah, mengedit, dan menghapus transaksi
+- Tampilan ringkasan dashboard dengan grafik statistik
+- Halaman profil dan pengaturan pengguna
+- Riwayat transaksi dan pencarian sederhana
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Teknologi:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React 19
+- React Router
+- Tailwind CSS
+- Axios
+- Recharts (grafik)
 
-### `npm test`
+Persyaratan:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js LTS (mis. 18+)
+- npm
 
-### `npm run build`
+Instalasi dan menjalankan (lokal):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Perintah penting:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `npm start` — jalankan aplikasi di mode development (http://localhost:3000)
+- `npm run build` — membangun versi produksi
+- `npm test` — jalankan test (jika ada)
 
-### `npm run eject`
+Struktur penting proyek:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- public/ — aset statis
+- src/ — kode sumber frontend
+  - api/ — helper untuk memanggil backend (lihat [src/api/api.js](src/api/api.js#L1))
+  - components/ — komponen UI (mis. `Sidebar.jsx`)
+  - page/ — halaman aplikasi (Dashboard, Login, Register, dll.)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Contoh penggunaan singkat:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Buka halaman utama setelah `npm start`.
+- Gunakan form "Tambah Transaksi" untuk memasukkan pemasukan/pengeluaran.
+- Lihat grafik statistik di halaman `Dashboard`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Kontribusi:
 
-## Learn More
+- Buka issue atau buat pull request.
+- Ikuti pola penamaan komponen yang sudah ada dan re-use komponen apabila memungkinkan.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Catatan pengembangan:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- API endpoint dan konfigurasi ada di `src/api/api.js`.
+- Styling utama menggunakan `tailwind.config.js` dan `src/index.css`.
 
-### Code Splitting
+Lisensi:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Bebas digunakan untuk keperluan pembelajaran dan pengembangan (sebutkan lisensi yang diinginkan jika perlu).
 
-### Analyzing the Bundle Size
+Kontak:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Jika butuh bantuan atau fitur baru, buka issue pada repository atau hubungi tim pengembang.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+File ini dihasilkan otomatis oleh tim pengembang; sesuaikan bagian "Lisensi" dan "Kontak" sesuai kebutuhan.
