@@ -35,9 +35,11 @@ const COLORS = ["#3B82F6", "#22C55E", "#EAB308", "#EF4444", "#A855F7"];
 const Statistik = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("custom"); 
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthValue);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,12 +70,15 @@ const Statistik = () => {
       const currentMonthIndex = months.findIndex(
         (m) => m.value === selectedMonth
       );
-      const prevMonthIndex = currentMonthIndex > 0 ? currentMonthIndex - 1 : 11;
+
+      if (currentMonthIndex === 0) {
+        setSelectedMonth("desember");
+        setSelectedYear((prev) => prev - 1);
+      } else {
+        setSelectedMonth(months[currentMonthIndex - 1].value);
+      }
+
       setSelectedPeriod("bulan-lalu");
-      setSelectedMonth(months[prevMonthIndex].value);
-    } else {
-      setSelectedPeriod("custom");
-      setSelectedMonth(getCurrentMonthValue());
     }
   };
 
@@ -85,16 +90,17 @@ const Statistik = () => {
   const selectedMonthIndex = months.findIndex(
     (m) => m.value === selectedMonth
   );
-  const currentYear = new Date().getFullYear();
 
   const monthlyTransactions = transactions.filter((tx) => {
     const date = new Date(tx.transaction_date || tx.created_at);
     if (Number.isNaN(date.getTime())) return false;
+
     return (
       date.getMonth() === selectedMonthIndex &&
-      date.getFullYear() === currentYear
+      date.getFullYear() === selectedYear
     );
   });
+
 
   // === HITUNG PEMASUKAN & PENGELUARAN BULAN INI ===
   let incomeTotal = 0;
@@ -110,7 +116,7 @@ const Statistik = () => {
   });
 
   // Rata-rata pengeluaran harian
-  const daysInMonth = new Date(currentYear, selectedMonthIndex + 1, 0).getDate();
+  const daysInMonth = new Date(selectedYear, selectedMonthIndex + 1, 0).getDate();
   const dailyAverageExpense =
     expenseTotal > 0 ? expenseTotal / daysInMonth : 0;
 
@@ -232,6 +238,22 @@ const Statistik = () => {
                     </svg>
                   </div>
                 </div>
+
+                {/* Dropdown untuk memilih tahun */}
+                <select
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(Number(e.target.value))}
+                  className="appearance-none w-full sm:w-32 px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-blue-500"
+                >
+                  {Array.from({ length: 10 }, (_, i) => {
+                    const year = new Date().getFullYear() - i;
+                    return (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    );
+                  })}
+                </select>
 
                 {/* Tombol untuk bulan lalu */}
                 <button
